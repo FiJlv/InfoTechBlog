@@ -1,6 +1,8 @@
+using InfoTechBlog.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +25,7 @@ namespace InfoTechBlog
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]));
             services.AddMvc();
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
