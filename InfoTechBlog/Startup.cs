@@ -1,4 +1,5 @@
 using InfoTechBlog.Data;
+using InfoTechBlog.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +27,7 @@ namespace InfoTechBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]));
+            services.AddTransient<IRepository, Repository>();
             services.AddMvc();
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
