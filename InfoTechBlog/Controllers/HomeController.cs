@@ -21,11 +21,13 @@ namespace InfoTechBlog.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var posts = _repository.GetAllPosts();
+            return View(posts);
         }
-        public IActionResult Post()
+        public IActionResult Post(int id)
         {
-            return View();
+            var post = _repository.GetPost(id);
+            return View(post);
         }
         [HttpGet]
         public IActionResult Edit()

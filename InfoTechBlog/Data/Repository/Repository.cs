@@ -21,7 +21,7 @@ namespace InfoTechBlog.Data.Repository
             _ctx.Posts.Add(post);
         }
 
-        public List<Post> GetAllPosts(int id)
+        public List<Post> GetAllPosts()
         {
             return _ctx.Posts.ToList();
         }
