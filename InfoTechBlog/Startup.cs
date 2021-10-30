@@ -28,15 +28,16 @@ namespace InfoTechBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]));
-            services.AddIdentityCore<IdentityUser>(options =>
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
             })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+               .AddEntityFrameworkStores<AppDbContext>();
+
+
             services.AddTransient<IRepository, Repository>();
             services.AddMvc();
             services.AddMvc(option => option.EnableEndpointRouting = false);
