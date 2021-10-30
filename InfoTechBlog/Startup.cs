@@ -37,7 +37,10 @@ namespace InfoTechBlog
             })
                .AddEntityFrameworkStores<AppDbContext>();
 
-
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Auth/Login"; 
+            });
             services.AddTransient<IRepository, Repository>();
             services.AddMvc();
             services.AddMvc(option => option.EnableEndpointRouting = false);
