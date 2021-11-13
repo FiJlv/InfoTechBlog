@@ -1,4 +1,5 @@
 using InfoTechBlog.Data;
+using InfoTechBlog.Data.FileManager;
 using InfoTechBlog.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,7 @@ namespace InfoTechBlog
                 options.LoginPath = "/Auth/Login"; 
             });
             services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IFileManager, FileManager>();
             services.AddMvc();
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
@@ -54,6 +56,8 @@ namespace InfoTechBlog
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 
