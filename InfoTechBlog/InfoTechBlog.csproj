@@ -22,4 +22,9 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\lib\Trumbowyg-main\.github\FUNDING.yml" />
+    <None Include="wwwroot\lib\Trumbowyg-main\.github\ISSUE_TEMPLATE.md" />
+  </ItemGroup>
+
 </Project>
