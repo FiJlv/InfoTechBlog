@@ -43,7 +43,10 @@ namespace InfoTechBlog.Controllers
                      Id = post.Id,
                      Title = post.Title,
                      Body = post.Body,
-                     CurrentImage = post.Image
+                     CurrentImage = post.Image,
+                     Description = post.Description,
+                     Category = post.Category,
+                     Tags = post.Tags
 
                 });
 
@@ -57,6 +60,10 @@ namespace InfoTechBlog.Controllers
                 Id = vm.Id,
                 Title = vm.Title,
                 Body = vm.Body,
+                Description = vm.Description,
+                Category = vm.Category,
+                Tags = vm.Tags
+
             };
 
             if (vm.Image == null)
