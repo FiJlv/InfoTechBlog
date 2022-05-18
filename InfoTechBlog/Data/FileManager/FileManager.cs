@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using PhotoSauce.MagicScaler;
 
 namespace InfoTechBlog.Data.FileManager
 {
@@ -23,6 +24,22 @@ namespace InfoTechBlog.Data.FileManager
         public FileStream ImageStream(string image)
         {
             return new FileStream(Path.Combine(_imagePath, image), FileMode.Open, FileAccess.Read);
+        }
+
+        public bool RemoveImage(string image)
+        {
+            try
+            {
+                var file = Path.Combine(_imagePath, image);
+                if (File.Exists(file))
+                    File.Delete(file);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
 
         public async Task<string> SaveImage(IFormFile image)
@@ -42,7 +59,7 @@ namespace InfoTechBlog.Data.FileManager
 
                 using (var fileStream = new FileStream(Path.Combine(save_path, fileName), FileMode.Create))
                 {
-                    await image.CopyToAsync(fileStream);
+                    MagicImageProcessor.ProcessImage(image.OpenReadStream(), fileStream, ImageOptions()); 
                 }
 
                 return fileName;
@@ -53,6 +70,16 @@ namespace InfoTechBlog.Data.FileManager
                 return "Error";
             }
         }
+
+        private ProcessImageSettings ImageOptions() => new ProcessImageSettings
+        {
+            Width = 800,
+            Height = 500,
+            ResizeMode = CropScaleMode.Crop,
+            SaveFormat = FileFormat.Jpeg,
+            JpegQuality = 100,
+            JpegSubsampleMode = ChromaSubsampleMode.Subsample420
+        };
     }
 
     [Serializable]

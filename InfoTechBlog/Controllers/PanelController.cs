@@ -69,7 +69,12 @@ namespace InfoTechBlog.Controllers
             if (vm.Image == null)
                 post.Image = vm.CurrentImage;
             else
+            {
+                if (!string.IsNullOrEmpty(vm.CurrentImage))
+                    _fileManager.RemoveImage(vm.CurrentImage);
+
                 post.Image = await _fileManager.SaveImage(vm.Image);
+            }
 
             if (post.Id > 0)
                 _repository.UpdatePost(post);
